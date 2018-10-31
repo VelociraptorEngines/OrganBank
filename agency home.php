@@ -20,7 +20,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <body>
 
 <?php
-    require_once './vendor/autoload.php';
+    require_once 'https://github.com/VelociraptorEngines/OrganBank/blob/master/vendor/autoload.php';
     
     use Kreait\Firebase\Factory;
     use Kreait\Firebase\ServiceAccount;
