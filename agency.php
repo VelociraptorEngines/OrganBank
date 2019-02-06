@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src = "https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
 <script type = "text/javascript" src = "index.js"></script>
 </head>
 <title>Organ Bank</title>
@@ -329,8 +329,8 @@ function validateForm() {
     var x = document.forms["myForm2"]["email"].value;
     var y = document.forms["myForm2"]["password"].value;
     
-    if ( x == "abcd" ?>"){
-        if (y != 1234){
+    if ( x == "abcd"){
+        if (y != "1234"){
             alert("Wrong Credentials !");
             return false;
         }
