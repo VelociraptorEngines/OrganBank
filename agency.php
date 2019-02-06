@@ -321,74 +321,7 @@ function signUpForm()
 }
 </script>
 
-<?php
-    
-    require_once './vendor/autoload.php';
-    
-    use Kreait\Firebase\Factory;
-    use Kreait\Firebase\ServiceAccount;
 
-    class Users{
-        
-        protected $database;
-        protected $dbname = 'agency';
-        
-        public function __construct(){
-            $acc = ServiceAccount::fromJsonFile(__DIR__.'/secret/organbank-219903-575252758dec.json');
-            $firebase = (new Factory)->withServiceAccount($acc)->create();
-            
-            $this->database = $firebase->getDatabase();
-        }
-        
-        public function get(string $userID = NULL){
-            if (empty($userID) || !isset($userID)) { return FALSE; }
-            if ($this->database->getReference($this->dbname)->getSnapshot()->hasChild($userID)){
-                
-                return $this->database->getReference($this->dbname)->getChild($userID)->getValue();
-            } else {
-                return FALSE;
-            }
-        }
-        
-        public function insert(array $data) {
-            if (empty($data) || !isset($data)) { return FALSE; }
-            foreach ($data as $key => $value){
-                $this->database->getReference()->getChild($this->dbname)->getChild($key)->set($value);
-            }
-            return TRUE;
-        }
-        
-        public function delete(string $userID) {
-            if (empty($userID) || !isset($userID)) { return FALSE; }
-            if ($this->database->getReference($this->dbname)->getSnapshot()->hasChild($userID)){
-                $this->database->getReference($this->dbname)->getChild($userID)->remove();
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        }
-        
-    }
-    
-    $users = new Users();
-    $name="";
-    $name = $_POST['name'];
-    $mob = $_POST['mob'];
-    $email = $_POST['email'];
-    $loc = $_POST['location'];
-    $psw = $_POST['psw'];
-    
-    if($name!="")
-    {
-    $users->insert([ 'Name' => $name,'Mobile' => $mob,'Email' => $email,'Location' => $loc,'Password' => $psw]);
-    }
-
-    $a=$users->get('Email');
-    $b=$users->get('Password');
-
-    
-    
-?>
 
 <script>
 function validateForm() {
@@ -396,8 +329,8 @@ function validateForm() {
     var x = document.forms["myForm2"]["email"].value;
     var y = document.forms["myForm2"]["password"].value;
     
-    if ( x == "<?php echo"$a" ?>"){
-        if (y != "<?php echo"$b" ?>"){
+    if ( x == "abcd" ?>"){
+        if (y != 1234){
             alert("Wrong Credentials !");
             return false;
         }
