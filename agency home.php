@@ -19,65 +19,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 <body>
 
-<?php
-    require_once './vendor/autoload.php';
-    
-    use Kreait\Firebase\Factory;
-    use Kreait\Firebase\ServiceAccount;
-    
-    class Organ{
-        
-        
-        protected $database;
-        protected $dbname = 'organs';
-        
-        public function __construct(){
-            $acc = ServiceAccount::fromJsonFile(__DIR__.'/secret/organbank-219903-575252758dec.json');
-            $firebase = (new Factory)->withServiceAccount($acc)->create();
-            
-            $this->database = $firebase->getDatabase();
-        }
-        
-        public function get(string $userID,string $childID){
-            if (empty($userID) || !isset($userID)) { return FALSE; }
-            if ($this->database->getReference($this->dbname)->getSnapshot()->hasChild($userID)){
-                return $this->database->getReference($this->dbname)->getChild($userID)->getChild($childID)->getValue();
-            } else {
-                return FALSE;
-            }
-        }
-        
-        public function insert(array $data) {
-            if (empty($data) || !isset($data)) { return FALSE; }
-            foreach ($data as $key => $value){
-                $this->database->getReference()->getChild($this->dbname)->getChild($key)->set($value);
-                
-            }
-            return TRUE;
-        }
-        
-        
-        
-    }
-    
-    $serial_no="";
-    $serial_no = $_POST['sno'];
-    $organ_name = $_POST['oname'];
-    $blood_group = $_POST['bg'];
-    $quantity = $_POST['qn'];
-    
-    $organ1 = new Organ();
-    if($serial_no!="")
-    {
-    $organ1->insert([$serial_no => ["Organ_Name" => $organ_name,"Blood_Group" => $blood_group,"Quantity" => $quantity]
-                             ]);
-    }
-    
-
-    $a="$users";
-    
-   
-?>
 
 <!-- Navbar -->
 <div class="w3-top">
